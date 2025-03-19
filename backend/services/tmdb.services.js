@@ -29,6 +29,21 @@ export const fetchMovieTrailers = async (url) => {
     if(resp.status != 200) {
         throw new Error(`Failed to fetch movie trailers from TMDB ${resp.statusText}`)
     }
-    console.log(resp.data)
+    return resp.data;
+}
+
+export const fetchMovieDetails = async (url) => {
+    const options = {
+    method: 'GET',
+    headers: {
+        accept: 'application/json',
+        Authorization: `Bearer ${ENV_VARS.TMDB_ACCESS_TOKEN}`,
+    }
+    };
+
+    const resp = await axios.get(url, options);
+    if(resp.status != 200) {
+        throw new Error(`Failed to fetch movie details from TMDB ${resp.statusText}`)
+    }
     return resp.data;
 }
