@@ -2,20 +2,20 @@ import { fetchFromTMDB } from "../services/tmdb.services.js"
 
 export async function getTrendingTV(req, res) {
     try {
-    const data = await fetchFromTMDB("https://api.themoviedb.org/3/tv/popular?language=en-US&page=1");  
-    const randomTV = data.results[Math.floor(Math.random() * data.results?.length)];
-    res.status(200).json({success: true, randomTV});
+        const data = await fetchFromTMDB("https://api.themoviedb.org/3/tv/popular?language=en-US&page=1");  
+        const randomTV = data.results[Math.floor(Math.random() * data.results?.length)];
+        res.status(200).json({success: true, randomTV});
     } catch (error) {
-       console.error("Failed to fetch TV: ", error) 
+        console.error("Failed to fetch TV: ", error) 
         res.status(500).json({success: false, message: "Internal server error"});
     }
 }
 
 export async function getTVTrailers(req, res) {
     try {
-    const {id} = req.params
-    const trailers = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${id}/videos?language=en-US`);
-    res.status(200).json({success: true, trailers: trailers.results});
+        const {id} = req.params
+        const trailers = await fetchFromTMDB(`https://api.themoviedb.org/3/tv/${id}/videos?language=en-US`);
+        res.status(200).json({success: true, trailers: trailers.results});
     } catch (error) {
         if(error.message.includes("404")) {
             return res.status(404).send(null)

@@ -1,12 +1,11 @@
 import { fetchMovieTrailers, fetchFromTMDB, fetchMovieDetails } from "../services/tmdb.services.js"
 
 const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
-
 export async function getTrendingMovie(req, res) {
     try {
-    const movies = await fetchFromTMDB(url);  
-    const randomMovie = movies.results[Math.floor(Math.random() * movies.results?.length)];
-    res.status(200).json({success: true, content: randomMovie});
+        const movies = await fetchFromTMDB(url);  
+        const randomMovie = movies.results[Math.floor(Math.random() * movies.results?.length)];
+        res.status(200).json({success: true, content: randomMovie});
     } catch (error) {
        console.error("Failed to fetch movie: ", error) 
         res.status(500).json({success: false, message: "Internal server error"});
