@@ -13,7 +13,7 @@ function Signup() {
   return (
     <div className='hero-bg h-screen w-full'>
         <header className="max-w-6xl mx-auto flex items-center justify-between p-4">
-            <Link to={"/"}>
+            <Link to={"/"} className='w-full'>
                 <img src='/netflix-logo.png' alt='Netflix logo' className='w-52'></img> 
             </Link>
         </header>
@@ -30,13 +30,13 @@ function Signup() {
                     </div>
                     <div>
                         <label htmlFor="username" className='text-sm font-medium text-gray-300 block'>Username</label>
-                        <input type="username" placeholder='your@example.com' id="email"
+                        <input type="username" placeholder='your@example.com' id="username"
                             className='font-medium w-full px-3 mt-1 border rounded-md border-gray-700 bg-transparent text-white focus:outline-none focus:ring'
                             value={username} onChange={(e) => {setUsername(e.target.value)}}></input>
                     </div>
                     <div>
                         <label htmlFor="password" className='text-sm font-medium text-gray-300 block'>Password</label>
-                        <input type="password" placeholder='your@example.com' id="email"
+                        <input type="password" placeholder='your@example.com' id="passworld"
                             className='font-medium w-full px-3 mt-1 border rounded-md border-gray-700 bg-transparent text-white focus:outline-none focus:ring'
                             value={password} onChange={(e) => {setPassword(e.target.value)}}></input>
                     </div>
