@@ -1,14 +1,22 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, {useState} from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import {ChevronRight} from 'lucide-react'
+
 function NonAuthScreen() {
+    const [email, setEmail] = useState("");
+    const navigate = useNavigate();
+
+    const onSubmitHandle = (e) => {
+        e.preventDefault();
+        navigate(`/signup?email=${email}`)
+    }
   return (
     <div className='hero-bg'>
         <header className='w-full flex justify-between'>
             <Link to={'/'}>
                 <img src="/netflix-logo.png" alt="Netflix logo" className='w-52 m-5 '></img>
             </Link>
-            <Link to={'/signup'} className=''>
+            <Link to={'/signup'} >
                 <button className='bg-red-500 p-4 m-5 text-white rounded-md'>Sign up</button>
             </Link>
         </header>
@@ -17,9 +25,9 @@ function NonAuthScreen() {
             <h1 className='text-white text-4xl md:text-6xl font-bold mb-4'>Unlimited movies, TV shows, and more</h1>
             <p className='text-white text-lg mb-4'>Watch anywhere. Cancel anytime</p>
             <p className='text-white mb-4'>Ready to watch? Enter your email to create or restart your membership</p>
-            <form className='flex flex-col md:flex-row gap-4 w-1/2'>
-                <input type='email' placeholder='Email address'
-                    className='p-2 rounded flex-1 bg-black/80 border border-gray-700'></input>
+            <form className='flex flex-col md:flex-row gap-4 w-1/2' onSubmit={(e) => onSubmitHandle(e)}>
+                <input type='email' placeholder='Email address' value={email} onChange={(e) => {console.log(e.target.value);setEmail(e.target.value)}}
+                    className='p-2 rounded text-white flex-1 bg-black/80 border border-gray-700'></input>
                 <button className='text-white bg-red-600 text-xl lg:text-2xl px-2 py-1 md:py-2 rounded flex justify-center items-center'>Get Started
                     <ChevronRight className='size-8 md:size-10'></ChevronRight>
                 </button>
@@ -85,7 +93,7 @@ function NonAuthScreen() {
                     <img src='/device-pile.png' alt='device image' className='mt-4 z-20'></img>
                     <video autoPlay={true} playsInline muted loop
                         className='absolute top-0 left-1/2 h-4/6 max-w-[63%] -translate-x-1/2'>
-                        <source src='/hero-vid.m4v' type="video/mp4"></source>
+                        <source src='/video-devices.m4v' type="video/mp4"></source>
                     </video>
                 </div>
             </div>

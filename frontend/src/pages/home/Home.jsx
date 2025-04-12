@@ -1,9 +1,11 @@
 import React from 'react'
 import NonAuthScreen from './NonAuthScreen';
 import AuthScreen from './AuthScreen';
+import { useAuthStore } from '../../store/authUsers.js';
 
 function Home() {
-  const user = false;
+  const {user} = useAuthStore();
+  console.log('......')
   return (
     <div>{user ? <AuthScreen/> : <NonAuthScreen/>}</div>
   )
