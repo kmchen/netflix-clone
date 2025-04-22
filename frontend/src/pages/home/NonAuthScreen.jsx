@@ -26,7 +26,7 @@ function NonAuthScreen() {
             <p className='text-white text-lg mb-4'>Watch anywhere. Cancel anytime</p>
             <p className='text-white mb-4'>Ready to watch? Enter your email to create or restart your membership</p>
             <form className='flex flex-col md:flex-row gap-4 w-1/2' onSubmit={(e) => onSubmitHandle(e)}>
-                <input type='email' placeholder='Email address' value={email} onChange={(e) => {console.log(e.target.value);setEmail(e.target.value)}}
+                <input type='email' placeholder='Email address' value={email} onChange={(e) => setEmail(e.target.value)}
                     className='p-2 rounded text-white flex-1 bg-black/80 border border-gray-700'></input>
                 <button className='text-white bg-red-600 text-xl lg:text-2xl px-2 py-1 md:py-2 rounded flex justify-center items-center'>Get Started
                     <ChevronRight className='size-8 md:size-10'></ChevronRight>
