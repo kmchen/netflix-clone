@@ -50,7 +50,6 @@ export const useAuthStore = create((set) => ({
       const { user } = resp.data;
       set({ user, isCheckingAuth: false });
     } catch (error) {
-      toast.error(error.response.data.message || "Sign up failed");
       set({ isCheckingAuth: false });
     }
   },
