@@ -6,13 +6,11 @@ function Login() {
   const { login } = useAuthStore();
 
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSignup = (e) => {
     e.preventDefault();
-    //console.log(email, username, password);
-    login({ email, username, password });
+    login({ email, password });
   };
 
   return (
@@ -47,24 +45,6 @@ function Login() {
                 value={email}
                 onChange={(e) => {
                   setEmail(e.target.value);
-                }}
-              ></input>
-            </div>
-            <div>
-              <label
-                htmlFor="username"
-                className="text-gray-300 text-sm font-medium"
-              >
-                Username
-              </label>
-              <input
-                for="username"
-                placeholder="John Doe"
-                type="text"
-                className="text-white px-3 font-medium rounded-md w-full border-gray-700 mt-1 border bg-transparent focus:ring focus:outline-none"
-                value={username}
-                onChange={(e) => {
-                  setUsername(e.target.value);
                 }}
               ></input>
             </div>

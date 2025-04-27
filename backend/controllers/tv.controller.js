@@ -62,12 +62,13 @@ export async function getTVSimilar(req, res) {
 export async function getTVByCategory(req, res) {
   try {
     const { category } = req.params;
-    console.log(category, ".....");
+
     const data = await fetchFromTMDB(
-      `https://api.thedb.org/3/TV/${category}?language=en-US&page=1`
+      `https://api.themoviedb.org/3/tv/${category}?language=en-US&page=1`
     );
     res.status(200).json({ success: true, content: data.results });
   } catch (error) {
+    console.log(error.message);
     if (error.message.includes("404")) {
       return res.status(404).send(null);
     }
