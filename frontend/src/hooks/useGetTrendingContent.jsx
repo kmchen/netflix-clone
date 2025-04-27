@@ -16,7 +16,6 @@ const useGetTrendingContent = () => {
     };
     getTrendingContent();
   }, [contentType]);
-  console.log(trendingContent, ".....");
   return { trendingContent };
 };
 

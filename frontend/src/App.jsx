@@ -35,8 +35,7 @@ function App() {
           element={!user ? <Signup /> : <Navigate to={"/"} />}
         ></Route>
       </Routes>
-      {/* Footer is always visible<Footer /> */}
-
+      <Footer />
       <Toaster />
     </>
   );

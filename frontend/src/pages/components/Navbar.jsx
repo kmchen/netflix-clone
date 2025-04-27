@@ -27,14 +27,14 @@ const Navbar = () => {
             search history
           </Link>
           <Link
-            to={"/tvshows"}
+            to={"/"}
             className="hover:underline"
             onClick={() => setContentType("tv")}
           >
             TV Shows
           </Link>
           <Link
-            to={"/movies"}
+            to={"/"}
             className="hover:underline"
             onClick={() => setContentType("movie")}
           >
