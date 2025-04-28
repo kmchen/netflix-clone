@@ -7,7 +7,7 @@ import Footer from "./pages/components/Footer";
 import { useAuthStore } from "./store/authUsers";
 import { useEffect } from "react";
 import { Loader } from "lucide-react";
-
+import WatchPage from "./pages/Watch";
 function App() {
   const { user, isCheckingAuth, authCheck } = useAuthStore();
   useEffect(() => {
@@ -34,6 +34,7 @@ function App() {
           path="/signup"
           element={!user ? <Signup /> : <Navigate to={"/"} />}
         ></Route>
+        <Route path="/watch/:id" element={<WatchPage />}></Route>
       </Routes>
       <Footer />
       <Toaster />

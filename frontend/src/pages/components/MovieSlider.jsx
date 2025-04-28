@@ -8,7 +8,6 @@ import { useContentStore } from "../../store/content";
 const MovieSlider = ({ category }) => {
   const [content, setContent] = React.useState([]);
   const { contentType } = useContentStore();
-  //console.log(category);
   const formattedCategoryName =
     category.replaceAll("_", " ")[0].toUpperCase() +
     category.replaceAll("_", " ").slice(1);
