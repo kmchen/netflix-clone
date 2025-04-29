@@ -6,7 +6,7 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { SMALL_IMG_BASE_URL, ORIGINAL_IMG_BASE_URL } from "../utils/constants";
 import { formatReleaseDate } from "../utils/dateFunction";
-
+import { useContentStore } from "../store/content";
 const WatchPage = () => {
   const { id } = useParams();
   const [details, setDetails] = useState();
@@ -14,6 +14,7 @@ const WatchPage = () => {
   const [trailerIndex, setTrailerIndex] = useState(0);
   const [similarContent, setSimilarContent] = useState();
   const [showArrows, setShowArrows] = useState(false);
+  const { contentType } = useContentStore();
   const sliderRef = useRef(null);
   const scrollLeft = () => {
     if (sliderRef.current) {
@@ -39,63 +40,67 @@ const WatchPage = () => {
   };
   useEffect(() => {
     const getTrailers = async () => {
-      const res = await axios.get(`/api/v1/movie/${id}/trailers`);
+      const res = await axios.get(`/api/v1/${contentType}/${id}/trailers`);
       setTrailers(res.data.trailers);
       setTrailerIndex(0);
     };
     getTrailers();
-  }, [id]);
+  }, [id, contentType]);
   useEffect(() => {
     const getDetails = async () => {
-      const res = await axios.get(`/api/v1/movie/${id}/details`);
+      const res = await axios.get(`/api/v1/${contentType}/${id}/details`);
       setDetails(res.data.details);
     };
     getDetails();
-  }, [id]);
+  }, [id, contentType]);
   useEffect(() => {
     const getDetails = async () => {
-      const res = await axios.get(`/api/v1/movie/${id}/similar`);
+      const res = await axios.get(`/api/v1/${contentType}/${id}/similar`);
       setSimilarContent(res.data.similars);
     };
     getDetails();
-  }, [id]);
+  }, [id, contentType]);
   return (
     <div className="text-white bg-black min-h-screen">
       <div className="max-auto container px-4 py-8 h-full border-indigo-100 border-4">
         <Navbar />
         {/* Tailers Buttons */}
-        <div className="flex justify-between items-center mb-4 mx-16">
-          <button
-            onClick={() => {
-              setTrailerIndex(trailerIndex - 1);
-            }}
-            className={`rounded py-2 px-4 bg-gray-500/70 hover:bg-gray-500 bg-opacity-50 text-white ${
-              trailerIndex === 0 ? "opacity-50 cursor-not-allowed " : ""
-            }`}
-          >
-            <ChevronLeft size={24}></ChevronLeft>
-          </button>
-          <button
-            onClick={() => {
-              setTrailerIndex(trailerIndex + 1);
-            }}
-            className={`rounded py-2 px-4 bg-gray-500/70 hover:bg-gray-500 bg-opacity-50 text-white ${
-              trailerIndex === trailers?.length - 1
-                ? "opacity-50 cursor-not-allowed "
-                : ""
-            }`}
-          >
-            <ChevronRight size={24}></ChevronRight>
-          </button>
-        </div>
+        {trailers.length > 0 && (
+          <div className="flex justify-between items-center mb-4 mx-16">
+            <button
+              onClick={() => {
+                setTrailerIndex(trailerIndex - 1);
+              }}
+              className={`rounded py-2 px-4 bg-gray-500/70 hover:bg-gray-500 bg-opacity-50 text-white ${
+                trailerIndex === 0 ? "opacity-50 cursor-not-allowed " : ""
+              }`}
+            >
+              <ChevronLeft size={24}></ChevronLeft>
+            </button>
+            <button
+              onClick={() => {
+                setTrailerIndex(trailerIndex + 1);
+              }}
+              className={`rounded py-2 px-4 bg-gray-500/70 hover:bg-gray-500 bg-opacity-50 text-white ${
+                trailerIndex === trailers?.length - 1
+                  ? "opacity-50 cursor-not-allowed "
+                  : ""
+              }`}
+            >
+              <ChevronRight size={24}></ChevronRight>
+            </button>
+          </div>
+        )}
         {/* Tailers Video */}
         <div className="mb-8 p-2 sm:px-10 md:px-32">
-          <ReactPlayer
-            controls={true}
-            width={"100%"}
-            height={"70vh"}
-            url={`https://www.youtube.com/watch?v=${trailers?.[trailerIndex]?.key}`}
-          />
+          {trailers?.length > 0 && (
+            <ReactPlayer
+              controls={true}
+              width={"100%"}
+              height={"70vh"}
+              url={`https://www.youtube.com/watch?v=${trailers?.[trailerIndex]?.key}`}
+            />
+          )}
         </div>
         {/* Content details*/}
         <div className="flex md:flex-row my-10 flex-col items-center justify-between max-w-6xl gap-20 mx-auto">
@@ -135,6 +140,7 @@ const WatchPage = () => {
             ref={sliderRef}
           >
             {similarContent?.map((content) => {
+              if (content.poster_path === null) return null;
               return (
                 <Link
                   className="min-w-[250px]"
